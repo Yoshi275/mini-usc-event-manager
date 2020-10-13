@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Box, Button, Container, Card, CardContent, CardActions, Typography, Grid, GridList, GridListTile } from '@material-ui/core'
 import EventCard from '../components/EventCard';
-// import firebase from '../firebase';
+import firebase from '../firebase';
 
 class EventCards extends Component {
     constructor(props) {
@@ -25,6 +25,23 @@ class EventCards extends Component {
                 }
             ]
         }
+        this.getEventsFromFirestore();
+    }
+
+    getEventsFromFirestore() {
+        const db = firebase.firestore()
+        db
+            .collection('events')
+            .get()
+            .then((querySnapshot) => {
+                const data = querySnapshot.docs.map(doc => doc.data());
+                var i;
+                for (i = 0; i < data.length; i++) {
+                    this.setState({
+                        tileData: [...this.state.tileData, data[i]]
+                    })
+                }
+            })
     }
 
     render() {
