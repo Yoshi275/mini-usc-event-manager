@@ -7,23 +7,41 @@ class EventCards extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tileData: []
+            tileData: [
+                {
+                    eventTitle: 'Test Event',
+                    eventDetails: 'Details of fake event. Details of fake event. Details of fake event. Details of fake event. Details of fake event.',
+                    location: 'Chatterbox',
+                },
+                {
+                    eventTitle: 'Test Event',
+                    eventDetails: 'Details of fake event. Details of fake event. Details of fake event. Details of fake event. Details of fake event.',
+                    location: 'Chatterbox',
+                },
+                {
+                    eventTitle: 'Test Event',
+                    eventDetails: 'Details of fake event. Details of fake event. Details of fake event. Details of fake event. Details of fake event.',
+                    location: 'Chatterbox',
+                }
+            ]
         }
     }
 
     render() {
         return (
             <Container component="main" maxWidth="lg">
-                <Grid container spacing = {3}>
-                    <Grid item xs={4}>
-                        <EventCard />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <EventCard />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <EventCard />
-                    </Grid>
+                <Grid container spacing={3}>
+                    <GridList cellHeight={300} cols={3}>
+                        {this.state.tileData.map((tile) => (
+                            <GridListTile key={tile.eventTitle} cols={1}>
+                                <EventCard
+                                    eventTitle={tile.eventTitle}
+                                    eventDetails={tile.eventDetails}
+                                    location={tile.location}
+                                />
+                            </GridListTile>
+                        ))}
+                    </GridList>
                 </Grid>
             </Container>
         );
