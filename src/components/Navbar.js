@@ -1,17 +1,9 @@
 import React, { Component } from 'react'
-import { AppBar, Toolbar, Typography, Tabs, Tab, Link } from '@material-ui/core'
-// import { Link } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Tabs, Tab } from '@material-ui/core'
+import { Link } from "react-router-dom";
 
 class NavBar extends Component {
     render() {
-        var styles = {
-            appBar: {
-                flexWrap: 'wrap'
-            },
-            tabs: {
-                width: '100%'
-            }
-        };
         var allTabs = ['/events', '/create']
 
         return (
