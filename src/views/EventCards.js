@@ -11,7 +11,8 @@ class EventCards extends Component {
         }
     }
 
-    render() {        return (
+    render() {
+        return (
             <Container component="main" maxWidth="lg">
                 <Grid container spacing = {3}>
                     <Grid item xs={4}>
