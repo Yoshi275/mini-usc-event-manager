@@ -4,14 +4,6 @@ import { Link } from "react-router-dom";
 
 class NavBar extends Component {
     render() {
-        var styles = {
-            appBar: {
-                flexWrap: 'wrap'
-            },
-            tabs: {
-                width: '100%'
-            }
-        };
         var allTabs = ['/events', '/create']
 
         return (
