@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Grid, Container, TextField, InputLabel, NativeSelect, Typography } from '@material-ui/core'
+import firebase from '../firebase'
 
 class CreateEvent extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class CreateEvent extends Component {
             location: ''
         }
         this.handleChange = this.handleChange.bind(this)
+        this.addEventToFirestore = this.addEventToFirestore.bind(this)
     }
 
     handleChange(event) {
@@ -18,6 +20,28 @@ class CreateEvent extends Component {
             ...this.state,
             [event.target.name]: event.target.value
         })
+    }
+
+    addEventToFirestore() {
+        const db = firebase.firestore()
+        db
+            .collection('events')
+            .add({
+                eventTitle: this.state.eventTitle,
+                eventDetails: this.state.eventDetails,
+                location: this.state.location
+            })
+            .then((docRef) => {
+                console.log("Event " + this.state.eventTitle, " created!")
+                this.setState({
+                    eventTitle: '',
+                    eventDetails: '',
+                    location: ''
+                })
+            })
+            .catch((error) => {
+                console.error("Error adding " + this.state.eventTitle + " event.")
+            })
     }
 
     render() {
@@ -36,8 +60,6 @@ class CreateEvent extends Component {
                                 name="eventTitle"
                                 autoComplete="eventTitle"
                                 autoFocus
-                            // helperText={errors.email}
-                            // error={errors.email ? true : false}
                                 onChange={this.handleChange}
                             />
                             <TextField
@@ -50,15 +72,12 @@ class CreateEvent extends Component {
                                 type="eventDetails"
                                 id="eventDetails"
                                 autoComplete="eventDetails"
-                            // helperText={errors.password}
-                            // error={errors.password ? true : false}
                                 onChange={this.handleChange}
                             />
                             <InputLabel htmlFor="location-native-helper">
                                 Location
                             </InputLabel>
                             <NativeSelect
-                                // value={state.age}
                                 name="location"
                                 value={this.state.location}
                                 onChange={this.handleChange}
